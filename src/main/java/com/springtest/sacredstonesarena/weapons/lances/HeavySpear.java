@@ -3,7 +3,7 @@ package com.springtest.sacredstonesarena.weapons.lances;
 import com.springtest.sacredstonesarena.weapons.Weapon;
 
 public class HeavySpear extends Weapon {
-    private final static String weaponName = "HeavySpear";
+    private final static String weaponName = "Heavy Spear";
     private final static String weaponType = "Lance";
     private final static int weight = 14;
     private final static int might = 9;

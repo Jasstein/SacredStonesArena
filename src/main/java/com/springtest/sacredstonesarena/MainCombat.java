@@ -3,6 +3,8 @@ package com.springtest.sacredstonesarena;
 import com.springtest.sacredstonesarena.units.*;
 import com.springtest.sacredstonesarena.weapons.Weapon;
 
+import java.util.Random;
+
 public class MainCombat {
 
     static Unit unit1;
@@ -140,25 +142,8 @@ public class MainCombat {
             unit2Double = 0;
 
         //Damage = Attack + [(Weapon might + Weapon triangle bonus) x Effective bonus] + Support bonus
-        unit1Damage = damageCalc(unit1, unit1Str, unit1Mag, weapon1, wtAttack1, effective1, unit2Def, unit2Res);
-//        if(unit1.getUnitClass().getPhysicalOrMagical() == "Physical") {
-//            int unit1Attack = unit1Str + (weapon1.getMight() + wtAttack1)*effective1;
-//            unit1Damage = Math.max(0, unit1Attack - unit2Def);
-//        }
-//        else if(unit1.getUnitClass().getPhysicalOrMagical() == "Magical") {
-//            int unit1Attack = unit1Mag + (weapon1.getMight() + wtAttack1)*effective1;
-//            unit1Damage = Math.max(0, unit1Attack - unit2Res);
-//        }
-
-        unit2Damage = damageCalc(unit2, unit2Str, unit2Mag, weapon2, wtAttack2, effective2, unit1Def, unit1Res);;
-//        if(unit2.getUnitClass().getPhysicalOrMagical() == "Physical") {
-//            int unit2Attack = unit2Str + (weapon2.getMight() + wtAttack2)*effective2;
-//            unit2Damage = Math.max(0, unit2Attack - unit1Def);
-//        }
-//        else if(unit2.getUnitClass().getPhysicalOrMagical() == "Magical") {
-//            int unit2Attack = unit2Mag + (weapon2.getMight() + wtAttack2)*effective2;
-//            unit2Damage = Math.max(0, unit2Attack - unit1Res);
-//        }
+        unit1Damage = damageDisplay(unit1, unit1Str, unit1Mag, weapon1, wtAttack1, effective1, unit2Def, unit2Res);
+        unit2Damage = damageDisplay(unit2, unit2Str, unit2Mag, weapon2, wtAttack2, effective2, unit1Def, unit1Res);;
 
         //Math.min(100, unit2Hit - unit1Avoid)
         //Accuraccy = Weapon Hit + (Skill x 2) + (Luck / 2) + Support bonus + Weapon triangle bonus + S Rank bonus
@@ -249,7 +234,7 @@ public class MainCombat {
 
     //attacking unit, attacking unit's attack, unit's magic,
     // attacking unit's weapon, weapon triangle effective damage, defending unit's def, unit's res
-    public static int damageCalc(Unit offUnit, int str, int mag, Weapon weapon, int wt, int eff, int def, int res){
+    public static int damageDisplay(Unit offUnit, int str, int mag, Weapon weapon, int wt, int eff, int def, int res){
         int damage = 0;
         if(offUnit.getUnitClass().getPhysicalOrMagical() == "Physical") {
             int unit1Attack = str + (weapon.getMight() + wt)*eff;
@@ -264,11 +249,116 @@ public class MainCombat {
 
     public static String doubleDisplay(int i){
         if(i == 3)
-            return " x4 ";
+            return " x4 damage";
         else if(i == 2 || i == 1)
-            return " x2 ";
+            return " x2 damage";
         else
-            return "";
+            return " damage";
     }
+
+    public static String[] damageCalculation(int defHp, int offDamage, int offDoubling,
+                                             int offAccuraccy, int offCritChance, String offName, String defName, int turn) {
+
+        String resultText = "";
+        boolean hit = hitCalculation(offAccuraccy);
+        //first hit
+        if(hit) {
+            boolean crit = critCalculation(offCritChance);
+            if(crit) {
+                defHp = Math.max(0, defHp - (offDamage*3));
+                resultText = offName + " crits";
+                resultText = resultText + "\n" + offName + " deals " + (offDamage*3) + " to " + defName;
+            }
+            else {
+                defHp = Math.max(0, defHp - offDamage);
+                resultText = offName + " deals " + offDamage + " to " + defName;
+            }
+        }
+        else {
+            resultText = offName + " misses";
+        }
+
+        //first brave hit
+        if((offDoubling == 2 || offDoubling == 3) && defHp > 0 ) {
+            if(hit) {
+                boolean crit = critCalculation(offCritChance);
+                if(crit) {
+                    defHp = Math.max(0, defHp - (offDamage*3));
+                    resultText = resultText + "\n" + offName + " crits";
+                    resultText = resultText + "\n" + offName + " deals " + (offDamage*3) + " to " + defName;
+                }
+                else {
+                    defHp = Math.max(0, defHp - offDamage);
+                    resultText = resultText + "\n" + offName + " deals " + offDamage + " to " + defName;
+                }
+            }
+            else {
+                resultText = resultText + "\n" + offName + " misses";
+            }
+        }
+
+        //double hit
+        if((offDoubling == 1 || offDoubling == 3) && defHp > 0 && turn > 0) {
+            if(hit) {
+                boolean crit = critCalculation(offCritChance);
+                if(crit) {
+                    defHp = Math.max(0, defHp - (offDamage*3));
+                    resultText = resultText + "\n" + offName + " crits";
+                    resultText = resultText + "\n" + offName + " deals " + (offDamage*3) + " to " + defName;
+                }
+                else {
+                    defHp = Math.max(0, defHp - offDamage);
+                    resultText = resultText + "\n" + offName + " deals " + offDamage + " to " + defName;
+                }
+            }
+            else {
+                resultText = resultText + "\n" + offName + " misses";
+            }
+        }
+
+        //double brave hit
+        if(offDoubling == 3 && defHp > 0 && turn > 0) {
+            if(hit) {
+                boolean crit = critCalculation(offCritChance);
+                if(crit) {
+                    defHp = Math.max(0, defHp - (offDamage*3));
+                    resultText = resultText + "\n" + offName + " crits";
+                    resultText = resultText + "\n" + offName + " deals " + (offDamage*3) + " to " + defName;
+                }
+                else {
+                    defHp = Math.max(0, defHp - offDamage);
+                    resultText = resultText + "\n" + offName + " deals " + offDamage + " to " + defName;
+                }
+            }
+            else {
+                resultText = resultText + "\n" + offName + " misses";
+            }
+        }
+
+
+        //remaining HP, combat text
+        return new String[]{Integer.toString(defHp), resultText};
+    }
+
+    public static boolean hitCalculation(int hit) {
+        Random r = new Random();
+        int r1 = r.nextInt(100);
+        int r2 = r.nextInt(100);
+        int averaged = (r1 + r2)/2;
+        if (averaged < hit)
+            return true;
+        else
+            return false;
+    }
+
+    public static boolean critCalculation(int critChance) {
+        Random r = new Random();
+        int r1 = r.nextInt(100);
+        if(r1<critChance)
+            return true;
+        else
+            return false;
+    }
+
 
 }

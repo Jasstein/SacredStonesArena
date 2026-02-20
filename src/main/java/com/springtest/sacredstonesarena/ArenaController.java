@@ -29,6 +29,7 @@ public class ArenaController {
     private Weapon tempWeapon1;
     private Weapon tempWeapon2;
     private Weapon tempWeapon3;
+    private int turn = 0;
 
     @RequestMapping("/")
     public String index(Model model){
@@ -84,17 +85,38 @@ public class ArenaController {
             return "weaponSelection";
         }
         else{
-            if(action.equals("1")){
-                unit2Weapon = tempWeapon1;
+            String combatLine = "Temp String";
+            if(step==3) {//setup initial battle screen
+                if (action.equals("1"))
+                    unit2Weapon = tempWeapon1;
+                else if (action.equals("2"))
+                    unit2Weapon = tempWeapon2;
+                else if (action.equals("3"))
+                    unit2Weapon = tempWeapon3;
+                System.out.println(unit2Weapon.getWeaponName());
+                combatLine = "Combat Forecast";
             }
-            else if(action.equals("2"))
-                unit2Weapon = tempWeapon2;
-            else if(action.equals("3"))
-                unit2Weapon = tempWeapon3;
-            System.out.println(unit2Weapon.getWeaponName());
 
             //damage1, damage2, hit1, hit2, crit1, crit2, double1, double2
             int[] previewStats = MainCombat.battlePreview(unit1, unit2, unit1Weapon, unit2Weapon);
+
+            if(action.equals("advance")){
+                if(turn%2==0){
+                    String result[] = MainCombat.damageCalculation(unit2.getCurrentHp(), previewStats[0], previewStats[6],
+                            previewStats[2], previewStats[4], unit1.getName(), unit2.getName(), turn);
+                    combatLine = result[1];
+                    unit2.setCurrentHp(Integer.parseInt(result[0]));
+                    turn++;
+                }
+                else{
+                    String result[] = MainCombat.damageCalculation(unit1.getCurrentHp(), previewStats[1], previewStats[7],
+                            previewStats[3], previewStats[5], unit2.getName(), unit1.getName(), turn);
+                    combatLine = result[1];
+                    unit1.setCurrentHp(Integer.parseInt(result[0]));
+                    turn++;
+                }
+
+            }
 
             String src1 = "../portraits/" + unit1.getName() + ".png";
             String src2 = "../portraits/" + unit2.getName() + ".png";
@@ -114,8 +136,8 @@ public class ArenaController {
 
             String unit1Double = MainCombat.doubleDisplay(previewStats[6]);
             String unit2Double = MainCombat.doubleDisplay(previewStats[7]);
-            String unit1Damage = previewStats[0] + unit1Double + " damage";
-            String unit2Damage = previewStats[1] + unit2Double + " damage";
+            String unit1Damage = previewStats[0] + unit1Double;
+            String unit2Damage = previewStats[1] + unit2Double;
             model.addAttribute("unit1Damage", unit1Damage);
             model.addAttribute("unit2Damage", unit2Damage);
 
@@ -130,6 +152,8 @@ public class ArenaController {
             model.addAttribute("unit2Crit", unit2Crit);
 
             model.addAttribute("message", unit1.getName() + " vs " +  unit2.getName());
+            model.addAttribute("combatLine", combatLine);
+
             return "battleScreen";
         }
     }

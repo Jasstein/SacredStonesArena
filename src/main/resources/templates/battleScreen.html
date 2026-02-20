@@ -17,6 +17,7 @@
     td {
       padding: 10px 0;
     }
+    .textBox1{white-space: pre-line;}
   </style>
 </head>
 <body>
@@ -38,7 +39,7 @@
     </td>
     <td>
       <div class="imgContainer">
-        <div ><img th:src="${unit2src}" th:alt="${unit2}"></div>
+        <div><img th:src="${unit2src}" th:alt="${unit2}"></div>
         <p th:text="${unit2}" class="unitName"></p>
         <p th:text="${unit2Hp}"></p>
         <p th:text="${unit2Weapon}"></p>
@@ -49,5 +50,13 @@
     </td>
   </tr>
 </table>
+<div class="textBox1">
+  <p th:text="${combatLine}"></p>
+</div>
+<div>
+  <form th:action="@{/}" method="post">
+    <div class="advance"><button type="submit" name="action" th:value="advance">Advance Combat</button></div>
+  </form>
+</div>
 </body>
 </html>
