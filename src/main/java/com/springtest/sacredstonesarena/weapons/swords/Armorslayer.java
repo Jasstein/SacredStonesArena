@@ -2,14 +2,14 @@ package com.springtest.sacredstonesarena.weapons.swords;
 
 import com.springtest.sacredstonesarena.weapons.Weapon;
 
-public class Armourslayer extends Weapon {
-    private final static String weaponName = "Armourslayer";
+public class Armorslayer extends Weapon {
+    private final static String weaponName = "Armorslayer";
     private final static String weaponType = "Sword";
     private final static int weight = 11;
     private final static int might = 8;
     private final static int hit = 80;
     private final static int crit = 0;
-    private final static String effective = "Armour";
+    private final static String effective = "Armor";
     private final static String bonus = "";
 
     @Override

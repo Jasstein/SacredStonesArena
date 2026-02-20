@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Battle Screen</title>
+  <style>
+    body {font-family: Arial, sans-serif; text-align: center;}
+    .container {margin-top: 100px;}
+    .imgContainer{width: auto; height: auto;}
+    .unitGrid {margin: 0 auto;}
+    .unitName {font-weight: bold;}
+    table {
+      margin: 0 auto;
+      border-collapse: separate;
+      border-spacing: 50px 0;
+    }
+    td {
+      padding: 10px 0;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1 class="header" th:text="${message}"></h1>
+</div>
+<table>
+  <tr>
+    <td>
+      <div class="imgContainer">
+        <div ><img th:src="${unit1src}" th:alt="${unit1}"></div>
+        <p th:text="${unit1}" class="unitName"></p>
+        <p th:text="${unit1Hp}"></p>
+        <p th:text="${unit1Weapon}"></p>
+        <p th:text="${unit1Damage}"></p>
+        <p th:text="${unit1Hit}"></p>
+        <p th:text="${unit1Crit}"></p>
+      </div>
+    </td>
+    <td>
+      <div class="imgContainer">
+        <div ><img th:src="${unit2src}" th:alt="${unit2}"></div>
+        <p th:text="${unit2}" class="unitName"></p>
+        <p th:text="${unit2Hp}"></p>
+        <p th:text="${unit2Weapon}"></p>
+        <p th:text="${unit2Damage}"></p>
+        <p th:text="${unit2Hit}"></p>
+        <p th:text="${unit2Crit}"></p>
+      </div>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,4 +1,55 @@
 package com.springtest.sacredstonesarena.weapons.magic;
 
-public class Ivaldi {
+import com.springtest.sacredstonesarena.weapons.Weapon;
+
+public class Ivaldi extends Weapon {
+    private final static String weaponName = "Ivaldi";
+    private final static String weaponType = "Light";
+    private final static int weight = 10;
+    private final static int might = 17;
+    private final static int hit = 90;
+    private final static int crit = 5;
+    private final static String effective = "Monster";
+    private final static String bonus = "Def+5";
+
+    @Override
+    public String getWeaponName(){
+        return weaponName;
+    }
+
+    @Override
+    public String getWeaponType(){
+        return weaponType;
+    }
+
+    @Override
+    public int getWeight(){
+        return weight;
+    }
+
+    @Override
+    public int getMight(){
+        return might;
+    }
+
+    @Override
+    public int getHit(){
+        return hit;
+    }
+
+    @Override
+    public int getCrit(){
+        return crit;
+    }
+
+    @Override
+    public String getEffective(){
+        return effective;
+    }
+
+    @Override
+    public String getBonus(){
+        return bonus;
+    }
+
 }

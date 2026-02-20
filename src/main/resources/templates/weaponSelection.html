@@ -1,10 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Weapon Selection</title>
+  <style>
+      body {font-family: Arial, sans-serif; text-align: center;}
+      .container {margin-top: 100px;}
+      .header {font-size: 24px; margin-bottom: 20px;}
+      .imgContainer{width: auto; height: auto;}
+      .weapon {font-size: 24px; margin-bottom: 20px;}
+  </style>
 </head>
 <body>
-$END$
+<div class="container">
+    <h1 class="header" th:text="${message}"></h1>
+    <div class="imgContainer">
+        <div ><img th:src="${unit1src}" th:alt="${unit1}"></div>
+    </div>
+</div>
+<form action="#" th:action="@{/}" method="post">
+  <div class="weapon"><button type="submit" name="action" th:value="1" th:text="${weapon1}"></button></div>
+  <div class="weapon"><button type="submit" name="action" th:value="2" th:text="${weapon2}"></button></div>
+  <div class="weapon"><button type="submit" name="action" th:value="3" th:text="${weapon3}"></button></div>
+</form>
 </body>
 </html>

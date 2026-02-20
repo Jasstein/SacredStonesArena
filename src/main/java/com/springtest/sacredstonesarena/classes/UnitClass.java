@@ -1,8 +1,6 @@
 package com.springtest.sacredstonesarena.classes;
 
-import lombok.Getter;
-
-public abstract class Class {
+public abstract class UnitClass {
     public abstract String getClassName();
     public abstract String getWeapon1();
     public abstract String getWeapon2();

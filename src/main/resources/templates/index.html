@@ -1,10 +1,301 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <style>
+        body {font-family: Arial, sans-serif; text-align: center;}
+        .container {margin-top: 100px;}
+        .header {font-size: 24px; margin-bottom: 20px;}
+        .unitGrid {margin: 0 auto;}
+        .imgContainer{
+            width: auto; height: auto;
+        }
+        .imgButton{
+            text-align:center;
+        }
+    </style>
 </head>
 <body>
-$END$
+<div class="container">
+    <h1 class="header" th:text="${message}"></h1>
+</div>
+<form action="#" th:action="@{/}" method="post">
+<table class="unitGrid">
+    <tr>
+        <td>
+            <div class="imgContainer">
+                <div ><img src="../portraits/Eirika.png" alt="Eirika"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Eirika" th:text="Eirika"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Ephraim.png" alt="Ephraim"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Ephraim" th:text="Ephraim"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Seth.png" alt="Seth"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Seth" th:text="Seth"></button></div>
+            </div></td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Franz.png" alt="Franz"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Franz" th:text="Franz"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Gilliam.png" alt="Gilliam"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Gilliam" th:text="Gilliam"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Vanessa.png" alt="Vanessa"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Vanessa" th:text="Vanessa"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Moulder.png" alt="Moulder"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Moulder" th:text="Moulder"></button></div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Ross.png" alt="Ross"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Ross" th:text="Ross"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Garcia.png" alt="Garcia"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Garcia" th:text="Garcia"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Neimi.png" alt="Neimi"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Neimi" th:text="Neimi"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Colm.png" alt="Colm"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Colm" th:text="Colm"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Artur.png" alt="Artur"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Artur" th:text="Artur"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Lute.png" alt="Lute"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Lute" th:text="Lute"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Natasha.png" alt="Natasha"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Natasha" th:text="Natasha"></button></div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Joshua.png" alt="Joshua"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Joshua" th:text="Joshua"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Forde.png" alt="Forde"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Forde" th:text="Forde"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Kyle.png" alt="Kyle"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Kyle" th:text="Kyle"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Tana.png" alt="Tana"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Tana" th:text="Tana"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Amelia.png" alt="Amelia"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Amelia" th:text="Amelia"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Innes.png" alt="Innes"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Innes" th:text="Innes"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Gerik.png" alt="Gerik"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Gerik" th:text="Gerik"></button></div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Tethys.png" alt="Tethys"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Tethys" th:text="Tethys"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Marisa.png" alt="Marisa"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Marisa" th:text="Marisa"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/L'Arachel.png" alt="L'Arachel"></div>
+                <div class="imgButton"><button type="submit" name="action" value="LArachel" >L'Arachel</button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Dozla.png" alt="Dozla"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Dozla" th:text="Dozla"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Saleh.png" alt="Saleh"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Saleh" th:text="Saleh"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Ewan.png" alt="Ewan"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Ewan" th:text="Ewan"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Cormag.png" alt="Cormag"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Cormag" th:text="Cormag"></button></div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Rennac.png" alt="Rennac"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Rennac" th:text="Rennac"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Duessel.png" alt="Duessel"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Duessel" th:text="Duessel"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Knoll.png" alt="Knoll"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Knoll" th:text="Knoll"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Myrrh.png" alt="Myrrh"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Myrrh" th:text="Myrrh"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Syrene.png" alt="Syrene"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Syrene" th:text="Syrene"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Caellach.png" alt="Caellach"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Caellach" th:text="Caellach"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Orson.png" alt="Orson"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Orson" th:text="Orson"></button></div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Riev.png" alt="Riev"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Riev" th:text="Riev"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Ismaire.png" alt="Ismaire"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Ismaire" th:text="Ismaire"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Selena.png" alt="Selena"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Selena" th:text="Selena"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Glen.png" alt="Glen"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Glen" th:text="Glen"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Hayden.png" alt="Hayden"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Hayden" th:text="Hayden"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Valter.png" alt="Valter"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Valter" th:text="Valter"></button></div>
+            </div>
+        </td>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Fado.png" alt="Fado"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Fado" th:text="Fado"></button></div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="imgContainer">
+                <div><img src="../portraits/Lyon.png" alt="Lyon"></div>
+                <div class="imgButton"><button type="submit" name="action" value="Lyon" th:text="Lyon"></button></div>
+            </div>
+        </td>
+    </tr>
+</table>
+</form>
+<script>
+</script>
 </body>
 </html>
