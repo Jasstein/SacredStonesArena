@@ -69,72 +69,60 @@ public class MainCombat {
         int effective2 = effectiveDamage(weapon2.getEffective(), unit1.getUnitClass().getWeakness());
 
         //check weapon1 for stat raises
-        if(weapon1.getBonus() == "Dragonstone") {
+        if(weapon1.getBonus().equals("Dragonstone")) {
             unit1Str = unit1Str+12;
             unit1Ski = unit1Ski+12;
             unit1Def = unit1Def+15;
             unit1Res = unit1Def+20;
         }
-        else if(weapon1.getBonus() == "Str+5") {
+        else if(weapon1.getBonus().equals("Str+5"))
             unit1Str = unit1Str+5;
-        }
-        else if(weapon1.getBonus() == "Spe+5") {
+        else if(weapon1.getBonus().equals("Spe+5"))
             unit1Spe = unit1Spe+5;
-        }
-        else if(weapon1.getBonus() == "Ski+5") {
+        else if(weapon1.getBonus().equals("Ski+5"))
             unit1Ski = unit1Ski+5;
-        }
-        else if(weapon1.getBonus() == "Def+5") {
+        else if(weapon1.getBonus().equals("Def+5"))
             unit1Def = unit1Def+5;
-        }
-        else if(weapon1.getBonus() == "Res+5") {
+        else if(weapon1.getBonus().equals("Res+5"))
             unit1Res = unit1Res+5;
-        }
-        else if(weapon1.getBonus() == "Lck+5") {
+        else if(weapon1.getBonus().equals("Lck+5"))
             unit1Lck = unit1Lck+5;
-        }
 
         //check weapon2 for stat raises
-        if(weapon2.getBonus() == "Dragonstone") {
+        if(weapon2.getBonus().equals("Dragonstone")) {
             unit2Str = unit2Str+12;
             unit2Ski = unit2Ski+12;
             unit2Def = unit2Def+15;
             unit2Res = unit2Def+20;
         }
-        else if(weapon2.getBonus() == "Str+5") {
+        else if(weapon2.getBonus().equals("Str+5"))
             unit2Str = unit2Str+5;
-        }
-        else if(weapon2.getBonus() == "Spe+5") {
+        else if(weapon2.getBonus().equals("Spe+5"))
             unit2Spe = unit2Spe+5;
-        }
-        else if(weapon2.getBonus() == "Ski+5") {
+        else if(weapon2.getBonus().equals("Ski+5"))
             unit2Ski = unit2Ski+5;
-        }
-        else if(weapon2.getBonus() == "Def+5") {
+        else if(weapon2.getBonus().equals("Def+5"))
             unit2Def = unit2Def+5;
-        }
-        else if(weapon2.getBonus() == "Res+5") {
+        else if(weapon2.getBonus().equals("Res+5"))
             unit2Res = unit2Res+5;
-        }
-        else if(weapon2.getBonus() == "Lck+5") {
+        else if(weapon2.getBonus().equals("Lck+5"))
             unit2Lck = unit2Lck+5;
-        }
 
         //Attack Speed
         unit1AS = unit1Spe - Math.max(0, weapon1.getWeight()-unit1.getCon());
         unit2AS = unit2Spe - Math.max(0, weapon2.getWeight()-unit2.getCon());
 
-        if(unit1AS - unit2AS >= 4 && weapon1.getBonus()=="Brave")
+        if(unit1AS - unit2AS >= 4 && weapon1.getBonus().equals("Brave"))
             unit1Double = 3; //double and brave
-        else if(weapon1.getBonus()=="Brave")
+        else if(weapon1.getBonus().equals("Brave"))
             unit1Double = 2; //brave
         else if(unit1AS - unit2AS >= 4)
             unit1Double = 1; //double
         else
             unit1Double = 0; //no double or brave
-        if(unit2AS - unit1AS >= 4 && weapon2.getBonus()=="Brave")
+        if(unit2AS - unit1AS >= 4 && weapon2.getBonus().equals("Brave"))
             unit2Double = 3;
-        else if(weapon2.getBonus()=="Brave")
+        else if(weapon2.getBonus().equals("Brave"))
             unit2Double = 2;
         else if(unit2AS - unit1AS >= 4)
             unit2Double = 1;
@@ -148,8 +136,8 @@ public class MainCombat {
         //Math.min(100, unit2Hit - unit1Avoid)
         //Accuraccy = Weapon Hit + (Skill x 2) + (Luck / 2) + Support bonus + Weapon triangle bonus + S Rank bonus
         //Avoid = (Attack Speed x 2) + Luck + Support bonus + Terrain bonus
-        int wtAcc1 = weaponTriangleAccuraccy(weapon1.getWeaponType(), weapon2.getWeaponType());
-        int wtAcc2 = weaponTriangleAccuraccy(weapon2.getWeaponType(), weapon1.getWeaponType());
+        int wtAcc1 = weaponTriangleAccuracy(weapon1.getWeaponType(), weapon2.getWeaponType());
+        int wtAcc2 = weaponTriangleAccuracy(weapon2.getWeaponType(), weapon1.getWeaponType());
         int unit1Hit = weapon1.getHit() + (2*unit1Ski) + (unit1Lck/2) + wtAcc1;
         int unit2Hit = weapon2.getHit() + (2*unit2Ski) + (unit2Lck/2) + wtAcc2;
         int unit1Avoid = (2*unit1AS) + unit1Lck;
@@ -161,9 +149,9 @@ public class MainCombat {
 
         //Crit rate = Weapon Critical + (Skill / 2) + Support bonus + Critical bonus + S Rank bonus
         //Crit evade = Luck + Support bonus
-        int unit1classCrit = ((unit1.getUnitClass().getSkill() == "Crit+15") ? 15 : 0);
+        int unit1classCrit = ((unit1.getUnitClass().getSkill().equals("Crit+15")) ? 15 : 0);
         int unit1CritRate = weapon1.getCrit() + (unit1Ski/2) + unit1classCrit;
-        int unit2classCrit = ((unit2.getUnitClass().getSkill() == "Crit+15") ? 15 : 0);
+        int unit2classCrit = ((unit2.getUnitClass().getSkill().equals("Crit+15")) ? 15 : 0);
         int unit2CritRate = weapon2.getCrit() + (unit2Ski/2) + unit2classCrit;
         unit1CritChance = Math.max(0,unit1CritRate - unit2Lck);
         unit2CritChance = Math.max(0,unit2CritRate - unit1Lck);
@@ -175,58 +163,58 @@ public class MainCombat {
 
     public static int weaponTriangleAttack(String weapon1, String weapon2) {
 
-        if(weapon1 == "Sword" && weapon2 == "Axe" ||
-                weapon1 == "Lance" && weapon2 == "Sword" ||
-                weapon1 == "Axe" && weapon2 == "Lance" ||
-                weapon1 == "Anima" && weapon2 == "Light" ||
-                weapon1 == "Dark" && weapon2 == "Anima" ||
-                weapon1 == "Light" && weapon2 == "Dark")
+        if(weapon1.equals("Sword") && weapon2.equals("Axe") ||
+                weapon1.equals("Lance") && weapon2.equals("Sword") ||
+                weapon1.equals("Axe") && weapon2.equals("Lance") ||
+                weapon1.equals("Anima") && weapon2.equals("Light") ||
+                weapon1.equals("Dark") && weapon2.equals("Anima") ||
+                weapon1.equals("Light") && weapon2.equals("Dark"))
             return 1;
 
-        if(weapon1 == "Axe" && weapon2 == "Sword" ||
-                weapon1 == "Sword" && weapon2 == "Lance" ||
-                weapon1 == "Lance" && weapon2 == "Axe" ||
-                weapon1 == "Light" && weapon2 == "Anima" ||
-                weapon1 == "Anima" && weapon2 == "Dark" ||
-                weapon1 == "Dark" && weapon2 == "Light")
+        if(weapon1.equals("Axe") && weapon2.equals("Sword") ||
+                weapon1.equals("Sword") && weapon2.equals("Lance") ||
+                weapon1.equals("Lance") && weapon2.equals("Axe") ||
+                weapon1.equals("Light") && weapon2.equals("Anima") ||
+                weapon1.equals("Anima") && weapon2.equals("Dark") ||
+                weapon1.equals("Dark") && weapon2.equals("Light"))
             return -1;
         else
             return 0;
     }
 
-    public static int weaponTriangleAccuraccy(String weapon1, String weapon2) {
+    public static int weaponTriangleAccuracy(String weapon1, String weapon2) {
 
-        if(weapon1 == "Sword" && weapon2 == "Axe" ||
-                weapon1 == "Lance" && weapon2 == "Sword" ||
-                weapon1 == "Axe" && weapon2 == "Lance" ||
-                weapon1 == "Anima" && weapon2 == "Light" ||
-                weapon1 == "Dark" && weapon2 == "Anima" ||
-                weapon1 == "Light" && weapon2 == "Dark")
+        if(weapon1.equals("Sword") && weapon2.equals("Axe") ||
+                weapon1.equals("Lance") && weapon2.equals("Sword") ||
+                weapon1.equals("Axe") && weapon2.equals("Lance") ||
+                weapon1.equals("Anima") && weapon2.equals("Light") ||
+                weapon1.equals("Dark") && weapon2.equals("Anima") ||
+                weapon1.equals("Light") && weapon2.equals("Dark"))
             return 15;
 
-        if(weapon1 == "Axe" && weapon2 == "Sword" ||
-                weapon1 == "Sword" && weapon2 == "Lance" ||
-                weapon1 == "Lance" && weapon2 == "Axe" ||
-                weapon1 == "Light" && weapon2 == "Anima" ||
-                weapon1 == "Anima" && weapon2 == "Dark" ||
-                weapon1 == "Dark" && weapon2 == "Light")
+        if(weapon1.equals("Axe") && weapon2.equals("Sword") ||
+                weapon1.equals("Sword") && weapon2.equals("Lance") ||
+                weapon1.equals("Lance") && weapon2.equals("Axe") ||
+                weapon1.equals("Light") && weapon2.equals("Anima") ||
+                weapon1.equals("Anima") && weapon2.equals("Dark") ||
+                weapon1.equals("Dark") && weapon2.equals("Light"))
             return -15;
         else
             return 0;
     }
 
     public static int effectiveDamage(String effective, String weakness) {
-        if((weakness == "Cavalry" || weakness == "CavalryArmor") &&
-                (effective == "Cavalry" || effective == "CavalryArmor"))
+        if((weakness.equals("Cavalry") || weakness.equals("CavalryArmor")) &&
+                (effective.equals("Cavalry") || effective.equals("CavalryArmor")))
             return 3;
-        else if((weakness == "Armor" || weakness == "CavalryArmor") &&
-                (effective == "Armor" || effective == "CavalryArmor"))
+        else if((weakness.equals("Armor") || weakness.equals("CavalryArmor")) &&
+                (effective.equals("Armor") || effective.equals("CavalryArmor")))
             return 3;
-        else if((weakness == "Flying" || weakness == "FlyingDragon") &&
-                (effective == "Flying" || effective == "FlyingMonster"))
+        else if((weakness.equals("Flying") || weakness.equals("FlyingDragon")) &&
+                (effective.equals("Flying") || effective.equals("FlyingMonster")))
             return 3;
-        else if((weakness == "FlyingDragon") &&
-                (effective == "Dragon"))
+        else if((weakness.equals("FlyingDragon")) &&
+                (effective.equals("Dragon")))
             return 3;
 
         return 1;
@@ -236,11 +224,11 @@ public class MainCombat {
     // attacking unit's weapon, weapon triangle effective damage, defending unit's def, unit's res
     public static int damageDisplay(Unit offUnit, int str, int mag, Weapon weapon, int wt, int eff, int def, int res){
         int damage = 0;
-        if(offUnit.getUnitClass().getPhysicalOrMagical() == "Physical") {
+        if(offUnit.getUnitClass().getPhysicalOrMagical().equals("Physical")) {
             int unit1Attack = str + (weapon.getMight() + wt)*eff;
             damage = Math.max(0, unit1Attack - def);
         }
-        else if(offUnit.getUnitClass().getPhysicalOrMagical() == "Magical") {
+        else if(offUnit.getUnitClass().getPhysicalOrMagical().equals("Magical")) {
             int unit1Attack = mag + (weapon.getMight() + wt)*eff;
             damage = Math.max(0, unit1Attack - res);
         }
@@ -345,19 +333,13 @@ public class MainCombat {
         int r1 = r.nextInt(100);
         int r2 = r.nextInt(100);
         int averaged = (r1 + r2)/2;
-        if (averaged < hit)
-            return true;
-        else
-            return false;
+        return averaged < hit;
     }
 
     public static boolean critCalculation(int critChance) {
         Random r = new Random();
         int r1 = r.nextInt(100);
-        if(r1<critChance)
-            return true;
-        else
-            return false;
+        return r1 < critChance;
     }
 
 

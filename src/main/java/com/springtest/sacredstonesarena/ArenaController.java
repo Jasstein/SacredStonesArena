@@ -84,6 +84,18 @@ public class ArenaController {
             step++;
             return "weaponSelection";
         }
+        else if(unit1.getCurrentHp()==0){
+            model.addAttribute("message", unit2.getName() + " wins!");
+            String src = "../portraits/" + unit2.getName() + ".png";
+            model.addAttribute("unitSrc", src);
+            return "victoryScreen";
+        }
+        else if(unit2.getCurrentHp()==0){
+            model.addAttribute("message", unit1.getName() + " wins!");
+            String src = "../portraits/" + unit1.getName() + ".png";
+            model.addAttribute("unitSrc", src);
+            return "victoryScreen";
+        }
         else{
             String combatLine = "Temp String";
             if(step==3) {//setup initial battle screen
@@ -102,14 +114,14 @@ public class ArenaController {
 
             if(action.equals("advance")){
                 if(turn%2==0){
-                    String result[] = MainCombat.damageCalculation(unit2.getCurrentHp(), previewStats[0], previewStats[6],
+                    String[] result = MainCombat.damageCalculation(unit2.getCurrentHp(), previewStats[0], previewStats[6],
                             previewStats[2], previewStats[4], unit1.getName(), unit2.getName(), turn);
                     combatLine = result[1];
                     unit2.setCurrentHp(Integer.parseInt(result[0]));
                     turn++;
                 }
                 else{
-                    String result[] = MainCombat.damageCalculation(unit1.getCurrentHp(), previewStats[1], previewStats[7],
+                    String[] result = MainCombat.damageCalculation(unit1.getCurrentHp(), previewStats[1], previewStats[7],
                             previewStats[3], previewStats[5], unit2.getName(), unit1.getName(), turn);
                     combatLine = result[1];
                     unit1.setCurrentHp(Integer.parseInt(result[0]));
