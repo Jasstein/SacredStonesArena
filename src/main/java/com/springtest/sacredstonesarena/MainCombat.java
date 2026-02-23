@@ -63,8 +63,10 @@ public class MainCombat {
         unit1Res = unit1.getResistance();
         unit2Res = unit2.getResistance();
 
-        int wtAttack1 = weaponTriangleAttack(weapon1.getWeaponType(), weapon2.getWeaponType()); //check weapon triangle
-        int wtAttack2 = weaponTriangleAttack(weapon2.getWeaponType(), weapon1.getWeaponType());
+        int[] wt1 = weaponTriangle(weapon1, weapon2);
+        int[] wt2 = weaponTriangle(weapon2, weapon1);
+        int wtAttack1 = wt1[0]; //check weapon triangle
+        int wtAttack2 = wt2[0];
         int effective1 = effectiveDamage(weapon1.getEffective(), unit2.getUnitClass().getWeakness()); //check effective damage
         int effective2 = effectiveDamage(weapon2.getEffective(), unit1.getUnitClass().getWeakness());
 
@@ -136,8 +138,8 @@ public class MainCombat {
         //Math.min(100, unit2Hit - unit1Avoid)
         //Accuraccy = Weapon Hit + (Skill x 2) + (Luck / 2) + Support bonus + Weapon triangle bonus + S Rank bonus
         //Avoid = (Attack Speed x 2) + Luck + Support bonus + Terrain bonus
-        int wtAcc1 = weaponTriangleAccuracy(weapon1.getWeaponType(), weapon2.getWeaponType());
-        int wtAcc2 = weaponTriangleAccuracy(weapon2.getWeaponType(), weapon1.getWeaponType());
+        int wtAcc1 = wt1[1];
+        int wtAcc2 = wt2[1];
         int unit1Hit = weapon1.getHit() + (2*unit1Ski) + (unit1Lck/2) + wtAcc1;
         int unit2Hit = weapon2.getHit() + (2*unit2Ski) + (unit2Lck/2) + wtAcc2;
         int unit1Avoid = (2*unit1AS) + unit1Lck;
@@ -161,46 +163,39 @@ public class MainCombat {
                 unit1Double, unit2Double};
     }
 
-    public static int weaponTriangleAttack(String weapon1, String weapon2) {
-
-        if(weapon1.equals("Sword") && weapon2.equals("Axe") ||
-                weapon1.equals("Lance") && weapon2.equals("Sword") ||
-                weapon1.equals("Axe") && weapon2.equals("Lance") ||
-                weapon1.equals("Anima") && weapon2.equals("Light") ||
-                weapon1.equals("Dark") && weapon2.equals("Anima") ||
-                weapon1.equals("Light") && weapon2.equals("Dark"))
-            return 1;
-
-        if(weapon1.equals("Axe") && weapon2.equals("Sword") ||
-                weapon1.equals("Sword") && weapon2.equals("Lance") ||
-                weapon1.equals("Lance") && weapon2.equals("Axe") ||
-                weapon1.equals("Light") && weapon2.equals("Anima") ||
-                weapon1.equals("Anima") && weapon2.equals("Dark") ||
-                weapon1.equals("Dark") && weapon2.equals("Light"))
-            return -1;
+    //weapon triangle attack, accuracy
+    public static int[] weaponTriangle(Weapon weapon1, Weapon weapon2){
+        String weapon1Type = weapon1.getWeaponType();
+        String weapon2Type = weapon2.getWeaponType();
+        //check for reaver weapons, ignore if both are reaver
+        if((weapon1.getBonus().equals("Reaver") || weapon2.getBonus().equals("Reaver")) &&
+                !(weapon1.getBonus().equals("Reaver") && weapon2.getBonus().equals("Reaver"))){
+            //reaver reverses weapon triangle, only exists for physical weapons
+            if(weapon1Type.equals("Sword") && weapon2Type.equals("Lance") ||
+                    weapon1Type.equals("Lance") && weapon2Type.equals("Axe") ||
+                    weapon1Type.equals("Axe") && weapon2Type.equals("Sword"))
+                return new int[]{2, 30};
+            else if(weapon1Type.equals("Axe") && weapon2Type.equals("Lance") ||
+                    weapon1Type.equals("Sword") && weapon2Type.equals("Axe") ||
+                    weapon1Type.equals("Lance") && weapon2Type.equals("Sword"))
+                return new int[]{-2, -30};
+        }
+        if(weapon1Type.equals("Sword") && weapon2Type.equals("Axe") ||
+                weapon1Type.equals("Lance") && weapon2Type.equals("Sword") ||
+                weapon1Type.equals("Axe") && weapon2Type.equals("Lance") ||
+                weapon1Type.equals("Anima") && weapon2Type.equals("Light") ||
+                weapon1Type.equals("Dark") && weapon2Type.equals("Anima") ||
+                weapon1Type.equals("Light") && weapon2Type.equals("Dark"))
+            return new int[]{1, 15};
+        else if(weapon1Type.equals("Axe") && weapon2Type.equals("Sword") ||
+                weapon1Type.equals("Sword") && weapon2Type.equals("Lance") ||
+                weapon1Type.equals("Lance") && weapon2Type.equals("Axe") ||
+                weapon1Type.equals("Light") && weapon2Type.equals("Anima") ||
+                weapon1Type.equals("Anima") && weapon2Type.equals("Dark") ||
+                weapon1Type.equals("Dark") && weapon2Type.equals("Light"))
+            return new int[]{-1, -15};
         else
-            return 0;
-    }
-
-    public static int weaponTriangleAccuracy(String weapon1, String weapon2) {
-
-        if(weapon1.equals("Sword") && weapon2.equals("Axe") ||
-                weapon1.equals("Lance") && weapon2.equals("Sword") ||
-                weapon1.equals("Axe") && weapon2.equals("Lance") ||
-                weapon1.equals("Anima") && weapon2.equals("Light") ||
-                weapon1.equals("Dark") && weapon2.equals("Anima") ||
-                weapon1.equals("Light") && weapon2.equals("Dark"))
-            return 15;
-
-        if(weapon1.equals("Axe") && weapon2.equals("Sword") ||
-                weapon1.equals("Sword") && weapon2.equals("Lance") ||
-                weapon1.equals("Lance") && weapon2.equals("Axe") ||
-                weapon1.equals("Light") && weapon2.equals("Anima") ||
-                weapon1.equals("Anima") && weapon2.equals("Dark") ||
-                weapon1.equals("Dark") && weapon2.equals("Light"))
-            return -15;
-        else
-            return 0;
+            return new int[]{0, 0};
     }
 
     public static int effectiveDamage(String effective, String weakness) {
