@@ -71,6 +71,10 @@ public class ArenaController {
         }
         else if(step==2){
             unit2 = SetupUnits.decideUnit(action);
+            if(unit1.getName().equals(unit2.getName())){
+                model.addAttribute("message", "Select a different unit.");
+                return "index";
+            }
             tempWeapon1 = unit2.getInventory()[0];
             tempWeapon2 = unit2.getInventory()[1];
             tempWeapon3 = unit2.getInventory()[2];

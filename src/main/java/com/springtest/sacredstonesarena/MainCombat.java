@@ -67,8 +67,9 @@ public class MainCombat {
         int[] wt2 = weaponTriangle(weapon2, weapon1);
         int wtAttack1 = wt1[0]; //check weapon triangle
         int wtAttack2 = wt2[0];
-        int effective1 = effectiveDamage(weapon1.getEffective(), unit2.getUnitClass().getWeakness()); //check effective damage
-        int effective2 = effectiveDamage(weapon2.getEffective(), unit1.getUnitClass().getWeakness());
+        //check effective damage
+        int effective1 = effectiveDamage(weapon1.getEffective(), unit2.getUnitClass().getWeakness(), weapon2.getWeaponType());
+        int effective2 = effectiveDamage(weapon2.getEffective(), unit1.getUnitClass().getWeakness(), weapon1.getWeaponType());
 
         //check weapon1 for stat raises
         if(weapon1.getBonus().equals("Dragonstone")) {
@@ -170,7 +171,7 @@ public class MainCombat {
         //check for reaver weapons, ignore if both are reaver
         if((weapon1.getBonus().equals("Reaver") || weapon2.getBonus().equals("Reaver")) &&
                 !(weapon1.getBonus().equals("Reaver") && weapon2.getBonus().equals("Reaver"))){
-            //reaver reverses weapon triangle, only exists for physical weapons
+            //reaver reverses weapon triangle, only exists for sword/lance/axe
             if(weapon1Type.equals("Sword") && weapon2Type.equals("Lance") ||
                     weapon1Type.equals("Lance") && weapon2Type.equals("Axe") ||
                     weapon1Type.equals("Axe") && weapon2Type.equals("Sword"))
@@ -198,7 +199,7 @@ public class MainCombat {
             return new int[]{0, 0};
     }
 
-    public static int effectiveDamage(String effective, String weakness) {
+    public static int effectiveDamage(String effective, String weakness, String weaponType) {
         if((weakness.equals("Cavalry") || weakness.equals("CavalryArmor")) &&
                 (effective.equals("Cavalry") || effective.equals("CavalryArmor")))
             return 3;
@@ -210,6 +211,8 @@ public class MainCombat {
             return 3;
         else if((weakness.equals("FlyingDragon")) &&
                 (effective.equals("Dragon")))
+            return 3;
+        else if(effective.equals("Sword") && weaponType.equals("Sword"))
             return 3;
 
         return 1;
@@ -240,10 +243,10 @@ public class MainCombat {
     }
 
     public static String[] damageCalculation(int defHp, int offDamage, int offDoubling,
-                                             int offAccuraccy, int offCritChance, String offName, String defName, int turn) {
+                                             int offAccuracy, int offCritChance, String offName, String defName, int turn) {
 
         String resultText = "";
-        boolean hit = hitCalculation(offAccuraccy);
+        boolean hit = hitCalculation(offAccuracy);
         //first hit
         if(hit) {
             boolean crit = critCalculation(offCritChance);
@@ -318,7 +321,6 @@ public class MainCombat {
             }
         }
 
-
         //remaining HP, combat text
         return new String[]{Integer.toString(defHp), resultText};
     }
@@ -336,6 +338,5 @@ public class MainCombat {
         int r1 = r.nextInt(100);
         return r1 < critChance;
     }
-
 
 }
