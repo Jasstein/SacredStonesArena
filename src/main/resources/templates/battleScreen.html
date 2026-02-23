@@ -50,13 +50,13 @@
     </td>
   </tr>
 </table>
-<div class="textBox1">
-  <p th:text="${combatLine}"></p>
-</div>
 <div>
   <form th:action="@{/}" method="post">
     <div class="advance"><button type="submit" name="action" th:value="advance">Advance Combat</button></div>
   </form>
+</div>
+<div class="textBox1">
+  <p th:text="${combatLine}"></p>
 </div>
 </body>
 </html>

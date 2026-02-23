@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Draw Screen</title>
+    <style>
+        body {font-family: Arial, sans-serif; text-align: center;}
+    </style>
+</head>
+<body>
+    <div>
+        <h1 class="header">No Winner</h1>
+    </div>
+    <div>
+        <form th:action="@{/}" method="post">
+            <div class="advance"><button type="submit" name="action" th:value="reset">Reset</button></div>
+        </form>
+    </div>
+</body>
+</html>

@@ -84,6 +84,17 @@ public class ArenaController {
             step++;
             return "weaponSelection";
         }
+        else if(action.equals("reset")){
+            step = 0;
+            turn = 0;
+            unit1 = null;
+            unit2 = null;
+            unit1Weapon = null;
+            unit2Weapon = null;
+            System.out.println("test");
+            model.addAttribute("message", "Select First Unit.");
+            return "index";
+        }
         else if(unit1.getCurrentHp()==0){
             model.addAttribute("message", unit2.getName() + " wins!");
             String src = "../portraits/" + unit2.getName() + ".png";
@@ -113,7 +124,10 @@ public class ArenaController {
             int[] previewStats = MainCombat.battlePreview(unit1, unit2, unit1Weapon, unit2Weapon);
 
             if(action.equals("advance")){
-                if(turn%2==0){
+                if(turn == 20){
+                    return "drawScreen";
+                }
+                else if(turn%2==0){
                     String[] result = MainCombat.damageCalculation(unit2.getCurrentHp(), previewStats[0], previewStats[6],
                             previewStats[2], previewStats[4], unit1.getName(), unit2.getName(), turn);
                     combatLine = result[1];

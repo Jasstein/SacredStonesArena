@@ -12,9 +12,6 @@ import org.springframework.context.ApplicationContext;
 public class SacredStonesArenaApplication {
 
     public static void main(String[] args){
-        String s = "Orson";
-        Unit unit1 = SetupUnits.decideUnit(s);
-        System.out.println(unit1.getName());
         ApplicationContext context = SpringApplication.run(SacredStonesArenaApplication.class, args);
     }
 }
