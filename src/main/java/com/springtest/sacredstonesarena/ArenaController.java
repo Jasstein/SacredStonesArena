@@ -66,15 +66,20 @@ public class ArenaController {
                 unit1Weapon = tempWeapon3;
             System.out.println(unit1Weapon.getWeaponName());
             model.addAttribute("message", "Select Second Unit.");
+
+            //disable chosen unit
+            String buttonDisable;
+            if(unit1.getName().equals("L'Arachel"))
+                buttonDisable = "LArachelButton";
+            else
+                buttonDisable = unit1.getName() + "Button";
+            model.addAttribute(buttonDisable, "disabled");
+
             step++;
             return "index";
         }
         else if(step==2){
             unit2 = SetupUnits.decideUnit(action);
-            if(unit1.getName().equals(unit2.getName())){
-                model.addAttribute("message", "Select a different unit.");
-                return "index";
-            }
             tempWeapon1 = unit2.getInventory()[0];
             tempWeapon2 = unit2.getInventory()[1];
             tempWeapon3 = unit2.getInventory()[2];
@@ -95,7 +100,6 @@ public class ArenaController {
             unit2 = null;
             unit1Weapon = null;
             unit2Weapon = null;
-            System.out.println("test");
             model.addAttribute("message", "Select First Unit.");
             return "index";
         }
